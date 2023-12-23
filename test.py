@@ -49,4 +49,6 @@ class TestCircuit(unittest.TestCase):
         int1circ2test=cc.covector_get_int(str1circ2)
         self.assertEqual(int1circ2,int1circ2test)
         
+if __name__ == '__main__':
+    unittest.main()        
 
