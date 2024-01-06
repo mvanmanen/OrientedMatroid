@@ -1,5 +1,6 @@
 import unittest
-import circuit as cc
+import pytest
+import ..circuit as cc
 
 
 class TestCircuit(unittest.TestCase):
