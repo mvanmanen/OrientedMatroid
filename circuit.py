@@ -91,6 +91,23 @@ def covector_max_int(lengte:int)->int:
     """
     return(3**lengte-1)
 
+def compute_center(points:np.ndarray,weights:np.ndarray)->np.ndarray:
+    if any(weights<0):
+        minweight=abs(min(weights))
+        weights=weights+minweight
+    if len(points)!=len(weights):
+        raise RunTimeError("compute_center: the points and the weights have unequal length")
+    points2=points-points[-1]
+
+        
+    no_pts,dim_pts=pts.shape
+    affine1=np.ones(no_pts,dtype=pts.dtype)
+    affine_pts=np.vstack((pts,affine1))
+    # it should be a linear combination of the affine points
+    :w
+
+
+    
 
 def read_qh_points(fl:str)->Tuple:
     """We read in a file with points and weights. 
@@ -138,7 +155,7 @@ def get_qh_points(points:List,weights:List)->List:
     halfnorms=[sum([x*x for x in p])/2 for p in points]
     return(np.vstack[-1*np.array([-1]+p+[q]) for q,p in zip(halfnorms-weights/2,points)])
 
-def get_circuits_from_intersection
+def get_circuits_from_intersection()
 
 def get_halfspace_np(point:np.ndarray,weight:float)->np.ndarray:
     """This should call the halfspace intersection

@@ -1,0 +1,111 @@
+\documentclass[12pt,oneside]{amsart}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage[all]{xy}
+\newtheorem{theorem}{{\sc Theorem}}
+\newtheorem{definition}{{\sc Definition}}
+\newtheorem{lemma}{{\sc Lemma}}
+\newtheorem{corollary}{{\sc Corollary}}
+\newtheorem{proposition}{{\sc Proposition}}
+\newtheorem{remark}{{\sc Remark}}
+\newtheorem{example}{{\sc Example}}
+\newcommand{\ZZ}{{\mathbb Z}}
+\newcommand{\RR}{{\mathbb R}}
+\newcommand{\CC}{{\mathbb C}}
+\newcommand{\Tau}{\mathcal{C}}
+\newcommand{\calA}{{\mathcal A}}
+\newcommand{\Discrete}[1]{\mathfrak{#1}}
+\def\colP#1#2{\{P_{#1},\cdots, P_{#2}\}}
+\def\colQ#1#2{\{Q_{#1},\cdots, Q_{#2}\}}
+\def\dP#1#2{d(P_{#1}, P_{#2})}
+\def\sP#1#2{S(P_{#1}, P_{#2})}
+\def\tP#1#2#3{\Delta(P_{#1}, P_{#2}, P_{#3})}
+\def\P#1#2{\{P_{#1}, P_{#2}\}}
+\def\PP#1#2#3{\{P_{#1}, P_{#2}, P_{#3}\}}
+\def\PPP#1#2#3#4{\{P_{#1}, P_{#2}, P_{#3}, P_{#4}\}}
+\setlength{\hoffset}{-1in}
+\setlength{\voffset}{-1in}
+\setlength{\textwidth}{7in}
+\setlength{\textheight}{10in}
+\setlength{\mathsurround}{1mm}
+\DeclareMathOperator{\diffd}{d}
+\DeclareMathOperator{\rk}{rk}
+%\DeclareMathOperator{\Im}{Im}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\xsup}{sup}
+\DeclareMathOperator{\CH}{CH}
+\DeclareMathOperator{\Up}{Up}
+\DeclareMathOperator{\Down}{Down}
+\DeclareMathOperator{\Dual}{Dual}
+\DeclareMathOperator{\Bary}{Bary}
+\DeclareMathOperator{\Pow}{Pow}
+\DeclareMathOperator{\Del}{Del}
+\DeclareMathOperator{\Sep}{Sep}
+\DeclareMathOperator{\Act}{Act}
+\DeclareMathOperator{\Aff}{Aff}
+\DeclareMathOperator{\Cone}{Cone}
+\DeclareMathOperator{\Star}{Star}
+\DeclareMathOperator{\Link}{Link}
+\DeclareMathOperator{\Relint}{Relint}
+\DeclareMathOperator{\Md}{Md}
+\newcommand{\trev}[1]{\lvert #1 \rvert}
+\newcommand{\treV}[1]{\lVert #1 \rVert^2}
+\def\prc#1{{\prec_{#1}}}
+\def\scc#1{{\succ_{#1}}}
+\newcommand{\Upo}{\Up_1}
+\newcommand{\Downo}{\Up_1}
+\newcommand{\mcA}{\mathcal{A}}
+\newcommand{\mcB}{\mathcal{B}}
+\newcommand{\mcD}{\mathcal{D}}
+\newcommand{\mcCa}{{{\mathcal C}^\ast}} % the cocircuits
+\newcommand{\mcCap}{{{\mathcal C}^{\prime\ast}}}
+\newcommand{\mcC}{{\mathcal C}} % the circuits
+\newcommand{\mcCp}{{{\mathcal C}^\prime}}
+\newcommand{\mcL}{{\mathcal L}} % the covectors
+\newcommand{\mcLp}{{{\mathcal L}^\prime}}
+\newcommand{\mcV}{{\mathcal V}} % the vectors
+\newcommand{\mcVp}{{{\mathcal V}^\prime}}
+\newcommand{\mcM}{{\mathcal M}}
+\newcommand{\mcMp}{{{\mathcal M}^\prime}} % the underlying set
+\newcommand{\umcM}{{\underline{\mathcal M}}}
+\newcommand{\umcMp}{{\underline{\mathcal M}^\prime}} % the underlying set
+\newcommand{\mcN}{{\mathcal N}} % jet bundle
+\newcommand{\mcNp}{{{\mathcal N}^\prime}} % the underlying set
+\newcommand{\umcN}{{\underline{\mathcal N}}}
+\newcommand{\umcNp}{{\underline{\mathcal N}^\prime}} % the underlying set
+\begin{document}
+\section{Computation of the center}
+We have that $P_1,\cdots , P_d$ are $d$ points in $\RR^n$.
+We want to compute the center.
+We need $d\leq n+1$.
+Set $y=f_i(x)=\langle x,P_i \rangle - \frac12\lVert P_i \rVert^2+\frac12 r_i^2$ where $r_i$ is the radius of the circle around $P_i$.
+Set $c_i=\frac12 r_i^2-\frac \lVert P_i \rVert^2$. 
+For the point $Q$ to be the center of the circle the functions $f_i(Q)$ all need to be equal and the function 
+$f(x)=\max_if_i(x)$ needs to be at the maximum.
+That means that $g(x)=\frac12\lVert x\rVert^2-f(x)$ needs to be a critical point.
+So that means that $0$ is in the convex hull of the $d$ vectors $x-P_i$, because the gradient of each individual $g_i(x)$ is $x-P_i$.
+So the center needs to be in $\CH\left(P_1,\cdots ,P_d\right)$.
+Hence to determine $x$ we have $d-1$ unknowns that are fixed by the $d-1$ equalities $f_i(x)=f_d(x)$, for $i=1,\cdots , d-1$.
+Now note that the setup is invariant under translations.
+So we can assume $P_d=0$. Then $f_d(x)=\frac12r_d^2$.
+Then the center $q=\sum_{i=1}^{d-1}\lambda_iP_i$ with $0\leq\lambda_i$ for $i=1,\cdots ,d-1$ and $\sum_{i=1}^{d-1}\leq 1$.
+Moreover $f_i(q)=f_d(q)=\frac12r_d^2$. 
+Hence we have two linear equations combined to get $q$, or the $\lambda$ vector.
+We need to compute the $(d-1)\times(d-1)$ matrix with entries $a_{i,j}=\langle P_i,P_j\rangle$, which is invertible as long as the vectors 
+span a full volume, i.e.\ they are linearly independent. If they are not then we need to reconsider the problem in the subspace spanned by the origin 
+and the points $P_i$ for $i=1,\cdots,d-1$. 
+Let $\mathbb{P}$ be the $(d-1)\times n$ matrix spanned by the points $P_1$ to $P_{d-1}$. The matrix
+$\mathbf{P}\mathbf{P}^T$ is the matrix with entries $\langle P_i,P_j\rangle$.
+To compute the Cholesky decomposition we would like to use that we already have the decomposition in $\mathbf{P}$ and $mat
+Then we need to have $\mathbf{P}\mathbf{P}^T\lambda=b$ where $b$ is the vector with entries $\frac12\left(r_d^2-\lVert P_i \rVert^2 -r_i^2\right)$ for 
+$i=1, \cdots ,d-1$.
+
+Then invert $A$ and the solution for $$.
+Use \begin{verbatim} cho_solve $\end{verbatim}
+We can use 
+
+\section{}
+We want to show that with the functions $f_i$ we can easily 
+\end{document}
