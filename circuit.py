@@ -1,3 +1,5 @@
+"""Module to compute oriented matroid for coherent triangulations
+"""
 from typing import List,Tuple
 import scipy.spatial
 import numpy as np
@@ -10,7 +12,7 @@ import numpy as np
 # weights=[2,3,4,5]
 
 # the k-th order are the averages of k of the n functions f_i
-# but we need to still proof that the corresponding triangulation dual to the 
+# but we need to still proof that the corresponding triangulation dual to the
 # k-th order diagram is the one with all spheres that have k-1 points inside
 
 # we have a bunch of validate functions.
@@ -18,7 +20,7 @@ import numpy as np
 
 
 def binary_validate_str(a:str)->bool:
-    """Validate the string 
+    """Validate the string
 
     Parameters
     ----------
@@ -30,10 +32,10 @@ def binary_validate_str(a:str)->bool:
     bool:
         Returns True if the string is a valid covector cocircuit string
     """
-    return(a.replace('1','').replace('0','')=='')
+    return a.replace('1','').replace('0','')==''
 
 def covector_validate_str(a:str)->bool:
-    """Validate the string 
+    """Validate the string
 
     Parameters
     ----------
@@ -46,10 +48,10 @@ def covector_validate_str(a:str)->bool:
         Returns True if the string is a valid covector cocircuit string
 
     """
-    return(a.replace('+','').replace('-','').replace('0','')=='')
+    return a.replace('+','').replace('-','').replace('0','')==''
 
 def covector_validate_int(a:int,lengte:int)->bool:
-    """Validate the integer 
+    """Validate the integer whether it is a valid integer for length lengte.
 
     Parameters
     ----------
@@ -64,10 +66,10 @@ def covector_validate_int(a:int,lengte:int)->bool:
         Returns True if the string is a valid covector cocircuit string
     """
     if a<0:
-        return(False)
+        return False
     if a>covector_max_int(lengte):
-        return(False)
-    return(True)
+        return False
+    return True
 
 def covector_max_int(lengte:int)->int:
     """Get the maximum integer for a given length
@@ -89,30 +91,63 @@ def covector_max_int(lengte:int)->int:
     -------
     int
     """
-    return(3**lengte-1)
+    return 3**lengte-1
 
-def compute_center(points:np.ndarray,weights:np.ndarray)->np.ndarray:
+def compute_center(pts:np.ndarray,weights:np.ndarray)->np.ndarray:
+    """Computes the center of the circle through the circles with weight sqrt(w)
+
+    Parameters
+    ----------
+    pts:numpy.ndarray
+        The pts :math:`d` pts in Rn
+    weights:numpy.ndarray
+        The $d$ weights
+
+    Returns
+    -------
+    np.ndarray:
+        Returns True if the string is a valid covector cocircuit string
+
+    Note
+    ----
+
+    We 
+    There are d-1 equations on inner product.
+    .. math::
+
+    \langle \sum_{i=1}^d \lambda_i \left( P_i 1 \right),
+    \left( P_j c_j \right) - 
+
+
+    """
+    # adjust the weights such that they are all larger than zero
     if any(weights<0):
-        minweight=abs(min(weights))
-        weights=weights+minweight
-    if len(points)!=len(weights):
-        raise RunTimeError("compute_center: the points and the weights have unequal length")
-    points2=points-points[-1]
+        minweight=min(weights)
+        weights=weights-minweight
+    if len(pts)!=len(weights):
+        raise RuntimeError("compute_center: the pts and the weights have unequal length")
+    if len(pts)>(len(pts[0])+1):
+        raise RuntimeError(f"compute_center: there are {len(pts)} pts and the weights have unequal length")
 
-        
-    no_pts,dim_pts=pts.shape
-    affine1=np.ones(no_pts,dtype=pts.dtype)
-    affine_pts=np.vstack((pts,affine1))
-    # it should be a linear combination of the affine points
-    :w
+    # these are the inner products on the pts 
+    # we are setting up Ax=b where x are the weights for the first d-1 pts
+    oneside1=np.dot(pts[:-1]-pts[-1],np.transpose(pts[:-1]-pts[-1]))
+    # compute norms of the pts
+    nrms=np.linalg.norm(pts,axis=1)**2/2
+    # transform the weights into the cvec
+    cvec=weights-nrms
+    otherside1=np.inner(pts[-1],pts[-1]-pts[:-1])+(cvec[-1]-cvec[:1])
+    lambdavec=np.dot(np.linalg.inv(oneside1),otherside1)
+    lambdavec2=np.append(lambdavec,1-np.sum(lambdavec))
+    retval=np.dot(np.append(lambdavec,1-np.sum(lambdavec)),pts)
+    return retval
 
-
-    
 
 def read_qh_points(fl:str)->Tuple:
     """We read in a file with points and weights. 
-    The weights are squared radiuses but these can all 
-    be 
+    The weights are squared radiuses but these can all be put 
+    Parameters
+
     """
     bb=[] # first part of the file are the bounding boxes
     hlfspc=[]
@@ -123,7 +158,7 @@ def read_qh_points(fl:str)->Tuple:
     with open(fl,"r") as f:
         for line in f:
             nos=[float(x) for x in line.split()]
-            if len(nos)=2:
+            if len(nos)==2:
                 bb.append(nos)
                 dimension+=1
                 if not nos[1]<nos[2]:
@@ -153,20 +188,22 @@ def get_qh_points(points:List,weights:List)->List:
     -------
     """
     halfnorms=[sum([x*x for x in p])/2 for p in points]
-    return(np.vstack[-1*np.array([-1]+p+[q]) for q,p in zip(halfnorms-weights/2,points)])
+    return(np.vstack([-1*np.array([-1]+p+[q]) for q,p in zip(halfnorms-weights/2,points)]))
 
-def get_circuits_from_intersection()
+def get_circuits_from_intersection():
+    pass
 
 def get_halfspace_np(point:np.ndarray,weight:float)->np.ndarray:
     """This should call the halfspace intersection
     The halfspace intersection
     """
-
     pass
-def are_adjacent(vertex1:np.ndarray,np.ndarray)->bool:
+
+def are_adjacent(vertex1:np.ndarray,vertex2:np.ndarray)->bool:
     """Find out whether two vertices are adjacent by passing by all halfplanes
     """
     pass
+
 def get_halfspace_list(point:List,weight:float)->np.ndarray:
     """
     If we have a point we get the ha
@@ -458,7 +495,7 @@ def covector_str_orthogonal(a:str,b:str)->bool:
 
     """
     if len(a)!=len(b):
-        raise RunTimeError("covector_str_orthogonal: vectors of unequal length")
+        raise RuntimeError("covector_str_orthogonal: vectors of unequal length")
     disjointsupport=[(x=="0")&(y!="0")|(y=="0")&(x!="0") for x,y in zip(a,b)]
     if all(disjointsupport):
         pass
@@ -502,13 +539,13 @@ def intermediate_covector(a:int,b:int,lengte:int,j:int)->int:
     
     # first check that j is 
     if ((j>lengte) | (j<1)):
-        raise RunTimeError("intermediate_covector : j should be between 1 and n")
+        raise RuntimeError("intermediate_covector : j should be between 1 and n")
     # if j=1 then we just need to check whether the mod 3 number is OK
     # if j=2 then we need to divide by 3
     ja=(a//(3**(j-1)))%3
     jb=(b//(3**(j-1)))%3
     if ja*jb!=2:
-        raise RunTimeError("intermediate_covector : j is not opposite sign ")
+        raise RuntimeError("intermediate_covector : j is not opposite sign ")
     
     return(0)
 

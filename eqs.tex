@@ -77,14 +77,14 @@
 \newcommand{\umcNp}{{\underline{\mathcal N}^\prime}} % the underlying set
 \begin{document}
 \section{Computation of the center}
-We have that $P_1,\cdots , P_d$ are $d$ points in $\RR^n$.
-We want to compute the center.
+We have that $P_1,\cdots , P_d$ are $d$ points in $\RR^n$, with spheres with radius $r_i$, $i=1,\cdots , d$  around them
+We want to compute the center of the spheres that touches these spheres, and that lies in the affine plane of dimension $d-1$ through these points.
 We need $d\leq n+1$.
 Set $y=f_i(x)=\langle x,P_i \rangle - \frac12\lVert P_i \rVert^2+\frac12 r_i^2$ where $r_i$ is the radius of the circle around $P_i$.
 Set $c_i=\frac12 r_i^2-\frac \lVert P_i \rVert^2$. 
-For the point $Q$ to be the center of the circle the functions $f_i(Q)$ all need to be equal and the function 
-$f(x)=\max_if_i(x)$ needs to be at the maximum.
-That means that $g(x)=\frac12\lVert x\rVert^2-f(x)$ needs to be a critical point.
+For the point $Q$ to be the center of the sphere the functions $f_i(Q)$ all need to be equal and the function 
+$f(x)=\max_if_i(x)$ needs to be at a maximum point at $x=q$.
+That means that $g(x)=\frac12\lVert x\rVert^2-f(x)$ needs to be a critical point $x=q$.
 So that means that $0$ is in the convex hull of the $d$ vectors $x-P_i$, because the gradient of each individual $g_i(x)$ is $x-P_i$.
 So the center needs to be in $\CH\left(P_1,\cdots ,P_d\right)$.
 Hence to determine $x$ we have $d-1$ unknowns that are fixed by the $d-1$ equalities $f_i(x)=f_d(x)$, for $i=1,\cdots , d-1$.
@@ -98,7 +98,7 @@ span a full volume, i.e.\ they are linearly independent. If they are not then we
 and the points $P_i$ for $i=1,\cdots,d-1$. 
 Let $\mathbb{P}$ be the $(d-1)\times n$ matrix spanned by the points $P_1$ to $P_{d-1}$. The matrix
 $\mathbf{P}\mathbf{P}^T$ is the matrix with entries $\langle P_i,P_j\rangle$.
-To compute the Cholesky decomposition we would like to use that we already have the decomposition in $\mathbf{P}$ and $mat
+To compute the Cholesky decomposition we would like to use that we already have the decomposition in $\mathbf{P}$ and $mat$
 Then we need to have $\mathbf{P}\mathbf{P}^T\lambda=b$ where $b$ is the vector with entries $\frac12\left(r_d^2-\lVert P_i \rVert^2 -r_i^2\right)$ for 
 $i=1, \cdots ,d-1$.
 
